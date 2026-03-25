@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v '^$')",
+      "Bash(flutter --version)",
+      "Bash(flutter pub:*)",
+      "Bash(where flutter:*)",
+      "Read(//c/Users/tuf/flutter/bin/**)",
+      "Read(//d/flutter/bin/**)",
+      "Bash(cmd.exe /c \"where flutter\")",
+      "Bash(cmd.exe /c \"flutter --version\" 2>&1)",
+      "Read(//c/Users/tuf/AppData/Local/Programs//**)",
+      "Read(//d//**)",
+      "Read(//c/flutter/**)",
+      "Read(//d/Naveen/group147/**)",
+      "Read(//d/Naveen/group147/$USERPROFILE/**)",
+      "Bash(echo $PATH)",
+      "Bash(/d/flutter/bin/flutter --version 2>&1)",
+      "Bash(/c/flutter/bin/flutter --version 2>&1)",
+      "Bash(/c/flutter/bin/flutter pub:*)",
+      "Bash(/c/flutter/bin/flutter analyze:*)",
+      "Bash(/c/flutter/bin/flutter devices:*)",
+      "Bash(/c/flutter/bin/flutter build:*)",
+      "Bash(git --version)",
+      "Bash(git config:*)"
+    ]
+  }
+}
