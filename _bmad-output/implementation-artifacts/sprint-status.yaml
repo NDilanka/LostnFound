@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-03-24
-last_updated: 2026-03-24T12:00:00
+last_updated: 2026-03-26T00:00:00
 project: group147
 project_key: NOKEY
 tracking_system: file-system
@@ -47,28 +47,28 @@ development_status:
   0-1-initialize-git-repository-and-team-setup: ready-for-dev
   0-2-fix-homepage-nested-materialapp: ready-for-dev
   0-3-add-controller-disposal-to-existing-pages: ready-for-dev
-  0-4-implement-proper-sign-out: backlog
-  0-5-add-url-launcher-package: backlog
+  0-4-implement-proper-sign-out: ready-for-dev
+  0-5-add-url-launcher-package: ready-for-dev
   epic-0-retrospective: optional
 
   # Epic 1: Enhanced Item Posting
-  epic-1: backlog
-  1-1-create-itemmodel-class: backlog
-  1-2-enhance-item-posting-with-user-identity-and-timestamps: backlog
+  epic-1: in-progress
+  1-1-create-itemmodel-class: ready-for-dev
+  1-2-enhance-item-posting-with-user-identity-and-timestamps: ready-for-dev
   epic-1-retrospective: optional
 
   # Epic 2: Item Discovery
-  epic-2: backlog
-  2-1-create-item-listing-page-with-tabbed-feed: backlog
-  2-2-add-search-functionality-to-item-listing: backlog
-  2-3-update-homepage-navigation-and-register-listing-route: backlog
-  2-4-handle-empty-states-in-item-listing: backlog
+  epic-2: in-progress
+  2-1-create-item-listing-page-with-tabbed-feed: ready-for-dev
+  2-2-add-search-functionality-to-item-listing: ready-for-dev
+  2-3-update-homepage-navigation-and-register-listing-route: ready-for-dev
+  2-4-handle-empty-states-in-item-listing: ready-for-dev
   epic-2-retrospective: optional
 
   # Epic 3: Item Details & Contact
-  epic-3: backlog
-  3-1-create-item-details-page: backlog
-  3-2-add-contact-poster-feature: backlog
+  epic-3: in-progress
+  3-1-create-item-details-page: ready-for-dev
+  3-2-add-contact-poster-feature: ready-for-dev
   epic-3-retrospective: optional
 
   # Epic 4: Profile Item History & Demo Prep
