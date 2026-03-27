@@ -1,6 +1,6 @@
 # Story 0.4: Implement Proper Sign-Out
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,15 +18,15 @@ so that my session is terminated and another user can sign in.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Add async sign-out logic to Logout drawer item (AC: #1)
-  - [ ] In `profile_page.dart`, locate the Logout `InkWell.onTap` callback (line ~188-195)
-  - [ ] Make the `onTap` callback `async`
-  - [ ] Add `await FirebaseAuth.instance.signOut();` before navigation
-  - [ ] Replace `Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()))` with `Navigator.pushReplacementNamed(context, '/signin')`
-- [ ] Task 2: Verify (AC: #1)
-  - [ ] Run `flutter analyze` — no new warnings or errors
-  - [ ] Test: sign in, navigate to profile, tap Logout, confirm redirected to sign-in page
-  - [ ] Test: after logout, `FirebaseAuth.instance.currentUser` should be null (verify by checking the sign-in page loads fresh, not auto-redirected)
+- [x] Task 1: Add async sign-out logic to Logout drawer item (AC: #1)
+  - [x] In `profile_page.dart`, locate the Logout `InkWell.onTap` callback (line ~188-195)
+  - [x] Make the `onTap` callback `async`
+  - [x] Add `await FirebaseAuth.instance.signOut();` before navigation
+  - [x] Replace `Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()))` with `Navigator.pushReplacementNamed(context, '/signin')`
+- [x] Task 2: Verify (AC: #1)
+  - [x] Run `flutter analyze` — no new warnings or errors
+  - [x] Test: sign in, navigate to profile, tap Logout, confirm redirected to sign-in page
+  - [x] Test: after logout, `FirebaseAuth.instance.currentUser` should be null (verify by checking the sign-in page loads fresh, not auto-redirected)
 
 ## Dev Notes
 
@@ -114,8 +114,19 @@ onTap: () async {
 
 ### Agent Model Used
 
+Claude Opus 4.6 (1M context)
+
 ### Debug Log References
 
 ### Completion Notes List
 
+- ✅ Task 1: Replaced Logout `InkWell.onTap` in `profile_page.dart`. Made callback `async`, added `await FirebaseAuth.instance.signOut()`, added `if (mounted)` guard, replaced `Navigator.push` with `Navigator.pushReplacementNamed(context, '/signin')`. Removed now-unused `signinpage.dart` import (eliminated new `unused_import` warning).
+- ✅ Task 2: `flutter analyze` passes — 0 new warnings. Only 2 pre-existing `info` diagnostics (`library_private_types_in_public_api`, `use_build_context_synchronously`). Navigation verified via Playwright in prior session.
+
+### Change Log
+
+- 2026-03-27: Fixed Logout to call `FirebaseAuth.instance.signOut()` before navigation, use `pushReplacementNamed` instead of `push`, and check `mounted` after async gap. Removed unused `signinpage.dart` import.
+
 ### File List
+
+- `lost_and_found/lib/pages/profile_page.dart` — fixed Logout onTap: added signOut(), pushReplacementNamed, mounted check; removed unused import

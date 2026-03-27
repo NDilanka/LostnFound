@@ -1,6 +1,6 @@
 # Story 0.5: Add url_launcher Package
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -17,23 +17,23 @@ so that the contact poster feature (Epic 3, Story 3.2) can launch email clients.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Add url_launcher to pubspec.yaml (AC: #1)
-  - [ ] Open `lost_and_found/pubspec.yaml`
-  - [ ] Add `url_launcher: ^6.2.0` to the `dependencies:` section (line 40, after `google_maps_flutter: ^2.6.0`)
-- [ ] Task 2: Add Android query intents for mailto scheme (AC: #1)
-  - [ ] Open `android/app/src/main/AndroidManifest.xml`
-  - [ ] Inside the existing `<queries>` block, insert the new `<intent>` between line 49 (closing `</intent>` of PROCESS_TEXT) and line 50 (closing `</queries>`)
-- [ ] Task 3: Add mailto to iOS LSApplicationQueriesSchemes (AC: #1)
-  - [ ] Open `ios/Runner/Info.plist`
-  - [ ] On line 45, the existing `LSApplicationQueriesSchemes` is compressed onto one line: `<key>LSApplicationQueriesSchemes</key> <array> <string>sms</string> <string>tel</string> </array>`
-  - [ ] Add `<string>mailto</string>` inside the `<array>`, after `<string>tel</string>`
-  - [ ] Result: `<key>LSApplicationQueriesSchemes</key> <array> <string>sms</string> <string>tel</string> <string>mailto</string> </array>`
-- [ ] Task 4: Run flutter pub get (AC: #1)
-  - [ ] Run `flutter pub get` from `lost_and_found/` directory
-  - [ ] Verify it completes without errors
-- [ ] Task 5: Verify (AC: #1)
-  - [ ] Run `flutter analyze` — no new errors
-  - [ ] Verify `url_launcher` appears in `pubspec.lock`
+- [x] Task 1: Add url_launcher to pubspec.yaml (AC: #1)
+  - [x] Open `lost_and_found/pubspec.yaml`
+  - [x] Add `url_launcher: ^6.2.0` to the `dependencies:` section (line 40, after `google_maps_flutter: ^2.6.0`)
+- [x] Task 2: Add Android query intents for mailto scheme (AC: #1)
+  - [x] Open `android/app/src/main/AndroidManifest.xml`
+  - [x] Inside the existing `<queries>` block, insert the new `<intent>` between line 49 (closing `</intent>` of PROCESS_TEXT) and line 50 (closing `</queries>`)
+- [x] Task 3: Add mailto to iOS LSApplicationQueriesSchemes (AC: #1)
+  - [x] Open `ios/Runner/Info.plist`
+  - [x] On line 45, the existing `LSApplicationQueriesSchemes` is compressed onto one line: `<key>LSApplicationQueriesSchemes</key> <array> <string>sms</string> <string>tel</string> </array>`
+  - [x] Add `<string>mailto</string>` inside the `<array>`, after `<string>tel</string>`
+  - [x] Result: `<key>LSApplicationQueriesSchemes</key> <array> <string>sms</string> <string>tel</string> <string>mailto</string> </array>`
+- [x] Task 4: Run flutter pub get (AC: #1)
+  - [x] Run `flutter pub get` from `lost_and_found/` directory
+  - [x] Verify it completes without errors
+- [x] Task 5: Verify (AC: #1)
+  - [x] Run `flutter analyze` — no new errors
+  - [x] Verify `url_launcher` appears in `pubspec.lock`
 
 ## Dev Notes
 
@@ -161,8 +161,24 @@ The `^` allows minor/patch upgrades. `flutter pub get` will resolve to the lates
 
 ### Agent Model Used
 
+Claude Opus 4.6 (1M context)
+
 ### Debug Log References
 
 ### Completion Notes List
 
+- ✅ Task 1: Added `url_launcher: ^6.2.0` to `pubspec.yaml` dependencies after `google_maps_flutter`.
+- ✅ Task 2: Added `mailto` SENDTO intent query to Android `AndroidManifest.xml` inside existing `<queries>` block.
+- ✅ Task 3: Added `<string>mailto</string>` to iOS `Info.plist` `LSApplicationQueriesSchemes` array on line 45.
+- ✅ Task 4: `flutter pub get` succeeded — 8 new dependencies resolved (url_launcher + platform implementations).
+- ✅ Task 5: `flutter analyze` passes with no issues. `url_launcher` confirmed in `pubspec.lock` as `"direct main"` dependency.
+
+### Change Log
+
+- 2026-03-27: Added url_launcher ^6.2.0 dependency with Android mailto intent query and iOS LSApplicationQueriesSchemes mailto entry. Ready for Epic 3 Story 3.2 (contact poster).
+
 ### File List
+
+- `lost_and_found/pubspec.yaml` — added `url_launcher: ^6.2.0` to dependencies
+- `lost_and_found/android/app/src/main/AndroidManifest.xml` — added mailto SENDTO intent to queries block
+- `lost_and_found/ios/Runner/Info.plist` — added mailto to LSApplicationQueriesSchemes array

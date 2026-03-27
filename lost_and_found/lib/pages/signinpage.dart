@@ -129,6 +129,13 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   Widget buildPasswordFormField({
     required TextEditingController controller,
     required String labelText,

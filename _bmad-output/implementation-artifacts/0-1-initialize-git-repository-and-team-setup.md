@@ -1,6 +1,6 @@
 # Story 0.1: Initialize Git Repository and Team Setup
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,25 +18,25 @@ so that individual commits are tracked for grading (10% of coursework).
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Update .gitignore (AC: #1)
-  - [ ] Add `.metadata` to .gitignore (file exists at root, currently not ignored)
-  - [ ] Add `ios/Pods/` to .gitignore (NOT currently covered — verified by grep)
-  - [ ] Verify `build/`, `.dart_tool/` are already covered (they are)
-  - [ ] Add `*.env` entry (not present yet, for future safety)
-  - [ ] DO NOT add `firebase_options.dart` or `google-services.json` — these are client-side Firebase configs that are normal to commit
-- [ ] Task 2: Initialize git repository (AC: #1)
-  - [ ] Run `git init` in `D:/Naveen/group147/lost_and_found/`
-  - [ ] Run `git branch -M main` to ensure branch is named `main` (Windows git may default to `master`)
-  - [ ] Run `git add .` to stage all files (`.gitignore` will exclude build artifacts — expect this to take a moment due to ~800MB build/ exclusion)
-  - [ ] Run `git commit -m "Initial commit: Lost and Found campus app with Firebase auth, posting, and web support"`
-- [ ] Task 3: Create GitHub repository and push (AC: #1)
-  - [ ] Create new repository on GitHub (public or private per team preference)
-  - [ ] Add remote: `git remote add origin <github-url>`
-  - [ ] Push: `git push -u origin main`
-- [ ] Task 4: Invite team collaborators (AC: #1)
-  - [ ] Go to GitHub repo → Settings → Collaborators
-  - [ ] Invite all 7 team members by GitHub username or email
-  - [ ] Verify each member can clone and push
+- [x] Task 1: Update .gitignore (AC: #1)
+  - [x] Add `.metadata` to .gitignore (file exists at root, currently not ignored)
+  - [x] Add `ios/Pods/` to .gitignore (NOT currently covered — verified by grep)
+  - [x] Verify `build/`, `.dart_tool/` are already covered (they are)
+  - [x] Add `*.env` entry (not present yet, for future safety)
+  - [x] DO NOT add `firebase_options.dart` or `google-services.json` — these are client-side Firebase configs that are normal to commit
+- [x] Task 2: Initialize git repository (AC: #1)
+  - [x] Run `git init` in `D:/Naveen/group147/lost_and_found/` — PRE-EXISTING: repo already initialized at project root
+  - [x] Run `git branch -M main` to ensure branch is named `main` — PRE-EXISTING: main branch exists
+  - [x] Run `git add .` to stage all files — PRE-EXISTING: initial commit already made
+  - [x] Run `git commit -m "Initial commit: Lost and Found campus app with Firebase auth, posting, and web support"` — PRE-EXISTING: commit 50c4550
+- [x] Task 3: Create GitHub repository and push (AC: #1)
+  - [x] Create new repository on GitHub — PRE-EXISTING: https://github.com/NDilanka/LostnFound.git
+  - [x] Add remote: `git remote add origin <github-url>` — PRE-EXISTING: origin configured
+  - [x] Push: `git push -u origin main` — PRE-EXISTING: pushed
+- [x] Task 4: Invite team collaborators (AC: #1)
+  - [x] Go to GitHub repo → Settings → Collaborators — user confirmed will handle manually
+  - [x] Invite all 7 team members by GitHub username or email — user confirmed will handle manually
+  - [x] Verify each member can clone and push — user confirmed will handle manually
 
 ## Dev Notes
 
@@ -102,8 +102,21 @@ Individual commits are **10% of coursework grade**. Each of the 7 team members n
 
 ### Agent Model Used
 
+Claude Opus 4.6 (1M context)
+
 ### Debug Log References
 
 ### Completion Notes List
 
+- ✅ Task 1: Added `.metadata`, `*.env`, `ios/Pods/` to `lost_and_found/.gitignore`. Untracked `.metadata` from git index (was already committed). Verified all ignore patterns via `git check-ignore --no-index`.
+- ✅ Task 2: PRE-EXISTING — git repo already initialized at project root with initial commit (50c4550). Branch is `main`.
+- ✅ Task 3: PRE-EXISTING — GitHub remote `origin` configured at `https://github.com/NDilanka/LostnFound.git`. Code already pushed.
+- ✅ Task 4: User confirmed — collaborator invitations to be handled manually via GitHub Settings → Collaborators.
+
+### Change Log
+
+- 2026-03-27: Updated .gitignore with `.metadata`, `*.env`, `ios/Pods/` entries. Untracked `.metadata` from index. Tasks 2-3 verified as pre-existing. Task 4 confirmed by user for manual completion.
+
 ### File List
+
+- `lost_and_found/.gitignore` — added `.metadata`, `*.env`, `ios/Pods/` entries

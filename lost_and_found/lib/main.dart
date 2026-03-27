@@ -46,9 +46,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
+    return Scaffold(
+      body: Center(
           child: SingleChildScrollView(
             child: Center(
               child: Padding(
@@ -122,8 +121,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-        ),
       ),
     );
   }
 }
+

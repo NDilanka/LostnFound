@@ -1,6 +1,6 @@
 # Story 0.2: Fix HomePage Nested MaterialApp
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,17 +18,17 @@ so that I can navigate to all pages without routing errors.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Remove nested MaterialApp from HomePage (AC: #1)
-  - [ ] In `lib/main.dart`, line 49: change `return MaterialApp(` to `return Scaffold(`
-  - [ ] Remove the `home:` wrapper — `Scaffold` becomes the direct return, not wrapped in `MaterialApp(home: Scaffold(...))`
-  - [ ] Keep the entire body content (Center > SingleChildScrollView > Column with logo, text, buttons) unchanged
-  - [ ] Verify both buttons (`/lost` and `/found` navigation) still work
-- [ ] Task 2: Verify navigation works (AC: #1)
-  - [ ] Run the app in Chrome: `/c/flutter/bin/flutter run -d chrome`
-  - [ ] Navigate from HomePage → Lost Items page (tap "Lost Items" button)
-  - [ ] Navigate from HomePage → Found Items page (tap "Found Items" button)
-  - [ ] Navigate back to HomePage from Lost/Found pages via drawer
-  - [ ] Verify no console errors about nested navigators or route not found
+- [x] Task 1: Remove nested MaterialApp from HomePage (AC: #1)
+  - [x] In `lib/main.dart`, line 49: change `return MaterialApp(` to `return Scaffold(`
+  - [x] Remove the `home:` wrapper — `Scaffold` becomes the direct return, not wrapped in `MaterialApp(home: Scaffold(...))`
+  - [x] Keep the entire body content (Center > SingleChildScrollView > Column with logo, text, buttons) unchanged
+  - [x] Verify both buttons (`/lost` and `/found` navigation) still work
+- [x] Task 2: Verify navigation works (AC: #1)
+  - [x] Run the app in Chrome: `/c/flutter/bin/flutter run -d chrome`
+  - [x] Navigate from HomePage → Lost Items page (tap "Lost Items" button)
+  - [x] Navigate from HomePage → Found Items page (tap "Found Items" button)
+  - [x] Navigate back to HomePage from Lost/Found pages via drawer
+  - [x] Verify no console errors about nested navigators or route not found
 
 ## Dev Notes
 
@@ -181,8 +181,19 @@ After the change, the app should:
 
 ### Agent Model Used
 
+Claude Opus 4.6 (1M context)
+
 ### Debug Log References
 
 ### Completion Notes List
 
+- ✅ Task 1: Removed nested `MaterialApp` from `HomePage.build()` in `lib/main.dart`. Changed `return MaterialApp(home: Scaffold(...))` to `return Scaffold(...)`, removing one level of widget nesting and one extra closing bracket. `flutter analyze` passed with no issues.
+- ✅ Task 2: Verified navigation in Chrome via Playwright MCP. HomePage renders correctly (logo + two buttons). Navigation to `/lost`, `/found`, and back to `/home` all work. No console errors about nested navigators or route-not-found. Only pre-existing Google Maps API key error (documented, unrelated).
+
+### Change Log
+
+- 2026-03-27: Removed nested MaterialApp from HomePage — replaced with direct Scaffold return. Single MaterialApp at root (MyApp) now correctly serves all routes.
+
 ### File List
+
+- `lost_and_found/lib/main.dart` — removed nested MaterialApp from HomePage.build(), returning Scaffold directly

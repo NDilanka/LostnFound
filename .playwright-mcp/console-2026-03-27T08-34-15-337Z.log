@@ -1,0 +1,4 @@
+[     728ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:8080/:0
+[   43857ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Me4GZLCzYlKw.woff2:0
+[   43859ms] [WARNING] Failed to load font Roboto at https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Me4GZLCzYlKw.woff2 @ http://localhost:8080/dart_sdk.js:241458
+[   43859ms] [WARNING] Flutter Web engine failed to complete HTTP request to fetch "https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Me4GZLCzYlKw.woff2": TypeError: Failed to fetch @ http://localhost:8080/dart_sdk.js:241458

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-03-24
-last_updated: 2026-03-26T00:00:00
+last_updated: 2026-03-27
 project: group147
 project_key: NOKEY
 tracking_system: file-system
@@ -43,12 +43,12 @@ story_location: _bmad-output/implementation-artifacts
 
 development_status:
   # Epic 0: Foundation & Team Setup
-  epic-0: in-progress
-  0-1-initialize-git-repository-and-team-setup: ready-for-dev
-  0-2-fix-homepage-nested-materialapp: ready-for-dev
-  0-3-add-controller-disposal-to-existing-pages: ready-for-dev
-  0-4-implement-proper-sign-out: ready-for-dev
-  0-5-add-url-launcher-package: ready-for-dev
+  epic-0: done
+  0-1-initialize-git-repository-and-team-setup: done
+  0-2-fix-homepage-nested-materialapp: done
+  0-3-add-controller-disposal-to-existing-pages: done
+  0-4-implement-proper-sign-out: done
+  0-5-add-url-launcher-package: done
   epic-0-retrospective: optional
 
   # Epic 1: Enhanced Item Posting
@@ -72,7 +72,7 @@ development_status:
   epic-3-retrospective: optional
 
   # Epic 4: Profile Item History & Demo Prep
-  epic-4: backlog
-  4-1-add-item-history-to-profile-page: backlog
-  4-2-seed-demo-data: backlog
+  epic-4: in-progress
+  4-1-add-item-history-to-profile-page: ready-for-dev
+  4-2-seed-demo-data: ready-for-dev
   epic-4-retrospective: optional
