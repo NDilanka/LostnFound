@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,6 +22,13 @@ class _FoundPageState extends State<FoundPage> {
   LatLng? _pickedLocation;
   GoogleMapController? _mapController;
   bool _isPosting = false;
+  String _posterName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserProfile();
+  }
 
   @override
   void dispose() {
@@ -28,6 +36,22 @@ class _FoundPageState extends State<FoundPage> {
     _descriptionController.dispose();
     _mapController?.dispose();
     super.dispose();
+  }
+
+  Future<void> _fetchUserProfile() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      final userData = snapshot.data();
+      if (userData != null && mounted) {
+        setState(() {
+          _posterName = '${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}'.trim();
+        });
+      }
+    }
   }
 
   Future<void> _pickImages() async {
@@ -68,6 +92,10 @@ class _FoundPageState extends State<FoundPage> {
             ? GeoPoint(_pickedLocation!.latitude, _pickedLocation!.longitude)
             : null,
         'imageUrls': imageUrls,
+        'userId': FirebaseAuth.instance.currentUser?.uid,
+        'posterName': _posterName,
+        'posterEmail': FirebaseAuth.instance.currentUser?.email,
+        'createdAt': FieldValue.serverTimestamp(),
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
