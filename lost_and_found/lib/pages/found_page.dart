@@ -22,6 +22,14 @@ class _FoundPageState extends State<FoundPage> {
   GoogleMapController? _mapController;
   bool _isPosting = false;
 
+  @override
+  void dispose() {
+    _itemNameController.dispose();
+    _descriptionController.dispose();
+    _mapController?.dispose();
+    super.dispose();
+  }
+
   Future<void> _pickImages() async {
     final picker = ImagePicker();
     List<XFile>? pickedImages = await picker.pickMultiImage();

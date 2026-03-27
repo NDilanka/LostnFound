@@ -186,6 +186,16 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   Widget buildPasswordFormField({
     required TextEditingController controller,
     required String labelText,

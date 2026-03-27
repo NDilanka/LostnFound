@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/main.dart';
-import 'package:lost_and_found/pages/signinpage.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -186,13 +186,11 @@ class _ProfilePageState extends State<ProfilePage> {
               width: 10.0,
             ),
             InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SignInPage(),
-                  ),
-                );
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                if (mounted) {
+                  Navigator.pushReplacementNamed(context, '/signin');
+                }
               },
               child: const Padding(
                 padding: EdgeInsets.all(15.0),

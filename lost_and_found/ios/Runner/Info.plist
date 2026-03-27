@@ -42,7 +42,7 @@
 	<string>Lost and Found app want's to access your location to get address.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string> Lost and Found want's to access your location to get address.</string>
-    <key>LSApplicationQueriesSchemes</key> <array> <string>sms</string> <string>tel</string> </array>
+    <key>LSApplicationQueriesSchemes</key> <array> <string>sms</string> <string>tel</string> <string>mailto</string> </array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app needs access to Microphone</string>
 	<key>UISupportedInterfaceOrientations</key>
