@@ -44,38 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD5kd63PexFN6MGCbcNhObj57BMTUK49zA',
-    appId: '1:600279841348:web:8d2136ff6c096a986f9a11',
-    messagingSenderId: '600279841348',
-    projectId: 'lostfoundapp-1e774',
-    authDomain: 'lostfoundapp-1e774.firebaseapp.com',
-    storageBucket: 'lostfoundapp-1e774.appspot.com',
-    measurementId: 'G-DMQGESVBC6',
+    apiKey: 'AIzaSyDaHt-jiEHNnb4A0RgdSZYhsTi57UDx9Jg',
+    appId: '1:456723411643:web:8fe376a7092fce4206af9e',
+    messagingSenderId: '456723411643',
+    projectId: 'lostfoundapp-1111',
+    authDomain: 'lostfoundapp-1111.firebaseapp.com',
+    storageBucket: 'lostfoundapp-1111.firebasestorage.app',
+    measurementId: 'G-Y2G7BHW6V3',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDQnNhxrREtRx9H7VqoH6QdLnoK9-cAS1s',
-    appId: '1:600279841348:android:fa51f5c34eda406b6f9a11',
-    messagingSenderId: '600279841348',
-    projectId: 'lostfoundapp-1e774',
-    storageBucket: 'lostfoundapp-1e774.appspot.com',
+    apiKey: 'AIzaSyDadjzuoIkPJx-9RVCj9V2YKH5r7LGx09Q',
+    appId: '1:456723411643:android:413df5f753a65ef606af9e',
+    messagingSenderId: '456723411643',
+    projectId: 'lostfoundapp-1111',
+    storageBucket: 'lostfoundapp-1111.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCdyozC9un9AexKzlwuHlewnL6tHIZdrC4',
-    appId: '1:600279841348:ios:af8aa7f4db89edde6f9a11',
-    messagingSenderId: '600279841348',
-    projectId: 'lostfoundapp-1e774',
-    storageBucket: 'lostfoundapp-1e774.appspot.com',
-    iosBundleId: 'com.example.lostAndFound',
+    apiKey: 'AIzaSyDYkwNQv4afw5yL2jMajQ6CK8sRt_AdEvs',
+    appId: '1:456723411643:ios:f5fb920ec9f3761f06af9e',
+    messagingSenderId: '456723411643',
+    projectId: 'lostfoundapp-1111',
+    storageBucket: 'lostfoundapp-1111.firebasestorage.app',
+    iosBundleId: 'com.example.lostAndFoundapp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCdyozC9un9AexKzlwuHlewnL6tHIZdrC4',
-    appId: '1:600279841348:ios:d881404e584681a26f9a11',
-    messagingSenderId: '600279841348',
-    projectId: 'lostfoundapp-1e774',
-    storageBucket: 'lostfoundapp-1e774.appspot.com',
-    iosBundleId: 'com.example.lostAndFound.RunnerTests',
+    apiKey: 'AIzaSyDYkwNQv4afw5yL2jMajQ6CK8sRt_AdEvs',
+    appId: '1:456723411643:ios:7b46357f5decc56d06af9e',
+    messagingSenderId: '456723411643',
+    projectId: 'lostfoundapp-1111',
+    storageBucket: 'lostfoundapp-1111.firebasestorage.app',
+    iosBundleId: 'com.example.lostAndFound',
   );
+
 }

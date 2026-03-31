@@ -7,6 +7,8 @@ import 'pages/found_page.dart';
 import 'pages/lost_items.dart';
 import 'pages/signinpage.dart';
 import 'pages/signuppage.dart';
+import 'pages/item_listing_page.dart';
+import 'pages/item_details_page.dart';
 import 'pages/splashscreen.dart';
 
 void main() async {
@@ -36,6 +38,8 @@ class MyApp extends StatelessWidget {
         '/lost': (context) => const LostPage(),
         '/found': (context) => const FoundPage(),
         '/profile': (context) => const ProfilePage(),
+        '/items': (context) => const ItemListingPage(),
+        '/details': (context) => const ItemDetailsPage(),
       },
     );
   }
@@ -73,7 +77,30 @@ class HomePage extends StatelessWidget {
                     const SizedBox(
                       height: 30.0,
                     ),
-                    // Replace text fields with buttons
+                    // Browse Items — primary action
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/items');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 128, 23),
+                        minimumSize: const Size(325, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'Browse Items',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                    // Report Lost Item — secondary
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/lost');
@@ -87,7 +114,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        'Lost Items',
+                        'Report Lost Item',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Poppins',
@@ -96,6 +123,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20.0),
+                    // Report Found Item — secondary
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/found');
@@ -108,7 +136,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        'Found Items',
+                        'Report Found Item',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Poppins',
