@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/pages/profile_page.dart';
+import 'package:lost_and_found/theme/app_theme.dart';
 
 import 'firebase_options.dart';
 import 'pages/found_page.dart';
@@ -26,10 +27,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hathi App',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
+      title: 'Lost & Found',
+      theme: AppTheme.themeData(),
       initialRoute: '/splash', // Set the initial route to SplashScreen
       routes: {
         '/splash': (context) => const SplashScreen(),
