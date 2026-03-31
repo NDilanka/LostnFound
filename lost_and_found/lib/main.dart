@@ -10,7 +10,7 @@ import 'pages/signuppage.dart';
 import 'pages/item_listing_page.dart';
 import 'pages/item_details_page.dart';
 import 'pages/splashscreen.dart';
-import 'seed_demo_data.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -143,29 +143,6 @@ class HomePage extends StatelessWidget {
                           fontFamily: 'Poppins',
                           fontSize: 18,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 40.0),
-                    TextButton(
-                      onPressed: () async {
-                        try {
-                          await seedDemoData();
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Demo data seeded successfully!')),
-                            );
-                          }
-                        } catch (e) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Failed to seed data: $e')),
-                            );
-                          }
-                        }
-                      },
-                      child: const Text(
-                        'Seed Demo Data (remove before demo)',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ),
                   ],
