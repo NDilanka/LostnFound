@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'signinpage.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lost_and_found/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,28 +16,40 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // Add a delay of 2 seconds before navigating to the SignInPage
     Timer(
       const Duration(seconds: 2),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SignInPage()),
-      ),
+      () => Navigator.pushReplacementNamed(context, '/signin'),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'assets/LF_logo.png', // Replace with your image asset
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.8,
-              // You can adjust the width and height based on your preference
+              'assets/LF_logo.png',
+              width: MediaQuery.of(context).size.width * 0.4,
+            ),
+            const SizedBox(height: AppTheme.space16),
+            Text(
+              'Lost & Found',
+              style: GoogleFonts.poppins(
+                fontSize: 28,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.onPrimary,
+              ),
+            ),
+            const SizedBox(height: AppTheme.space32),
+            const SizedBox(
+              width: 24, height: 24,
+              child: CircularProgressIndicator(
+                color: AppTheme.onPrimary,
+                strokeWidth: 2,
+              ),
             ),
           ],
         ),

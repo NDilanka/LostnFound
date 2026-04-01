@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lost_and_found/main.dart';
 import 'package:lost_and_found/models/item_model.dart';
+import 'package:lost_and_found/theme/app_theme.dart';
+import 'package:lost_and_found/widgets/app_drawer.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -133,244 +134,125 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        actions: [
-          IconButton(
-            onPressed: _updateUserData,
-            icon: const Icon(Icons.save),
-          ),
-        ],
       ),
-      drawer: Drawer(
-        backgroundColor: const Color.fromRGBO(232, 99, 70, 1),
-        child: ListView(
-          children: [
-            const InkWell(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 15.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: 28.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "Menu",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Icon(
-                        Icons.home,
-                        size: 28.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        "Home",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfilePage(),
-                  ),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Icon(
-                        Icons.person,
-                        size: 28.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        "Profile",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 450.0,
-              width: 10.0,
-            ),
-            InkWell(
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-                if (mounted) {
-                  Navigator.pushReplacementNamed(context, '/signin');
-                }
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Icon(
-                        Icons.logout,
-                        size: 28.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        "Logout",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      drawer: const AppDrawer(currentRoute: '/profile'),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(AppTheme.space16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Email'),
-              TextField(
+              Text('Your Profile',
+                  style: Theme.of(context).textTheme.headlineSmall),
+              const SizedBox(height: AppTheme.space24),
+              TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter your email',
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email_outlined),
                 ),
+                keyboardType: TextInputType.emailAddress,
               ),
-              const SizedBox(height: 16.0),
-              const Text('Full Name'),
-              TextField(
+              const SizedBox(height: AppTheme.space16),
+              TextFormField(
                 controller: _firstNameController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter your First name',
+                  labelText: 'First Name',
+                  prefixIcon: Icon(Icons.person_outline),
                 ),
               ),
-              const Text('Last Name'),
-              TextField(
+              const SizedBox(height: AppTheme.space16),
+              TextFormField(
                 controller: _lastNameController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter your Last name',
+                  labelText: 'Last Name',
+                  prefixIcon: Icon(Icons.person_outline),
                 ),
               ),
-              const SizedBox(height: 16.0),
-              const Text('Phone Number'),
-              TextField(
+              const SizedBox(height: AppTheme.space16),
+              TextFormField(
                 controller: _phoneNumberController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter your phone number',
+                  labelText: 'Phone Number',
+                  prefixIcon: Icon(Icons.phone_outlined),
                 ),
+                keyboardType: TextInputType.phone,
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: AppTheme.space24),
+              ElevatedButton(
+                onPressed: _updateUserData,
+                child: const Text('Save Changes'),
+              ),
 
               // My Posted Items section
-              const SizedBox(height: 24),
+              const SizedBox(height: AppTheme.space32),
               const Divider(),
-              const SizedBox(height: 8),
-              const Text(
-                'My Posted Items',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppTheme.space8),
+              Text('My Posted Items',
+                  style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: AppTheme.space12),
               if (_isLoadingItems)
-                const Center(child: CircularProgressIndicator())
+                const Center(child: Padding(
+                  padding: EdgeInsets.all(AppTheme.space24),
+                  child: CircularProgressIndicator(),
+                ))
               else if (_myItems.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppTheme.space24),
                   child: Center(
-                    child: Text(
-                      'You haven\'t posted any items yet',
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                    child: Column(
+                      children: [
+                        const Icon(Icons.inbox_outlined, size: 48, color: AppTheme.textSecondary),
+                        const SizedBox(height: AppTheme.space8),
+                        Text(
+                          'You haven\'t posted any items yet',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: AppTheme.textSecondary,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 )
               else
-                ..._myItems.map((item) => InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/details', arguments: item);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(item.itemName,
-                                  style: const TextStyle(fontSize: 15)),
-                              const SizedBox(height: 2),
-                              Text(_formatDate(item.createdAt),
-                                  style: const TextStyle(fontSize: 13, color: Colors.grey)),
-                            ],
+                ..._myItems.map((item) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppTheme.space8),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/details', arguments: item);
+                    },
+                    borderRadius: AppTheme.radiusMedium,
+                    child: Container(
+                      padding: const EdgeInsets.all(AppTheme.space12),
+                      decoration: BoxDecoration(
+                        color: AppTheme.surface,
+                        borderRadius: AppTheme.radiusMedium,
+                        border: Border.all(color: AppTheme.border),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(item.itemName,
+                                    style: Theme.of(context).textTheme.titleMedium),
+                                const SizedBox(height: 2),
+                                Text(_formatDate(item.createdAt),
+                                    style: Theme.of(context).textTheme.bodySmall),
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: item.type == 'lost'
-                                ? const Color.fromARGB(255, 214, 128, 23)
-                                : const Color(0xFF6CB523),
-                            borderRadius: BorderRadius.circular(4),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: AppTheme.badgeDecoration(item.type),
+                            child: Text(
+                              item.type == 'lost' ? 'Lost' : 'Found',
+                              style: AppTheme.badgeTextStyle,
+                            ),
                           ),
-                          child: Text(
-                            item.type == 'lost' ? 'Lost' : 'Found',
-                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 )),

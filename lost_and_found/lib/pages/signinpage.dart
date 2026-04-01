@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/theme/app_theme.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -20,13 +21,11 @@ class _SignInPageState extends State<SignInPage> {
         _isLoading = true;
       });
 
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: _usernameController.text,
         password: _passwordController.text,
       );
 
-      print('Navigation to home page'); // Debugging line
-      // Navigate to home page or any other page after successful sign-in
       Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
       String errorMessage = "Error during sign-in";
@@ -44,10 +43,7 @@ class _SignInPageState extends State<SignInPage> {
           duration: const Duration(seconds: 3),
         ),
       );
-    } catch (e, stackTrace) {
-      print('Error during sign-in: $e'); // Debugging line
-      print('Stack trace: $stackTrace'); // Debugging line
-
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error: $e'),
@@ -68,60 +64,73 @@ class _SignInPageState extends State<SignInPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(AppTheme.space16),
         child: Column(
           children: [
-            SizedBox(
+            SizedBox(height: deviceHeight * 0.1),
+            Image.asset(
+              'assets/LF_logo.png',
+              width: deviceWidth * 0.5,
               height: deviceHeight * 0.2,
             ),
-            Image.asset(
-              'assets/LF_logo.png', // Replace with your image asset
-              width: deviceWidth * 0.6,
-              height: deviceHeight * 0.3,
+            const SizedBox(height: AppTheme.space24),
+            Text(
+              'Welcome Back',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppTheme.space8),
+            Text(
+              'Sign in to continue',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppTheme.textSecondary,
+              ),
+            ),
+            const SizedBox(height: AppTheme.space32),
             TextFormField(
               controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                prefixIcon: Icon(Icons.email_outlined),
               ),
+              keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 10),
-            buildPasswordFormField(
+            const SizedBox(height: AppTheme.space16),
+            TextFormField(
               controller: _passwordController,
-              labelText: 'Password',
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: deviceHeight * 0.06,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _signIn,
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              obscureText: !_isPasswordVisible,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                prefixIcon: const Icon(Icons.lock_outline),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
                 ),
-                child: _isLoading
-                    ? const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : const Text('Sign In'),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppTheme.space24),
+            ElevatedButton(
+              onPressed: _isLoading ? null : _signIn,
+              child: _isLoading
+                  ? const SizedBox(
+                      width: 24, height: 24,
+                      child: CircularProgressIndicator(
+                        color: AppTheme.onPrimary, strokeWidth: 2,
+                      ),
+                    )
+                  : const Text('Sign In'),
+            ),
+            const SizedBox(height: AppTheme.space12),
             TextButton(
               onPressed: () {
-                // Navigate to Sign Up page
                 Navigator.pushReplacementNamed(context, '/signup');
               },
-              child: const Text(
-                'Don\'t have an account? Sign Up here',
-                style: TextStyle(color: Colors.black),
-              ),
+              child: const Text('Don\'t have an account? Sign Up here'),
             ),
           ],
         ),
@@ -134,31 +143,5 @@ class _SignInPageState extends State<SignInPage> {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  Widget buildPasswordFormField({
-    required TextEditingController controller,
-    required String labelText,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: !_isPasswordVisible,
-      decoration: InputDecoration(
-        labelText: labelText,
-        suffixIcon: IconButton(
-          icon: Icon(
-            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            setState(() {
-              _isPasswordVisible = !_isPasswordVisible;
-            });
-          },
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
   }
 }

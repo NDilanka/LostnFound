@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/widgets/app_drawer.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -129,38 +130,7 @@ class _FoundPageState extends State<FoundPage> {
       appBar: AppBar(
         title: const Text('Report Found Item'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/home');
-              },
-            ),
-            ListTile(
-              title: const Text('Profile'),
-              onTap: () {
-                // Navigate to Profile Page
-                Navigator.pushReplacementNamed(context, '/profile');
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const AppDrawer(currentRoute: '/found'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -170,17 +140,35 @@ class _FoundPageState extends State<FoundPage> {
             const SizedBox(height: 16.0),
             TextFormField(
               controller: _itemNameController,
-              decoration: const InputDecoration(labelText: 'Item Name'),
+              decoration: const InputDecoration(
+                labelText: 'Item Name',
+                prefixIcon: Icon(Icons.label_outline),
+              ),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
               controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'Description'),
+              decoration: const InputDecoration(
+                labelText: 'Description',
+                prefixIcon: Icon(Icons.description_outlined),
+                alignLabelWithHint: true,
+              ),
               maxLines: 5,
             ),
             const SizedBox(height: 16.0),
             _images.isEmpty
-                ? Container()
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.camera_alt_outlined, color: Colors.grey),
+                        SizedBox(width: 8),
+                        Text('Tap the camera button to add photos',
+                            style: TextStyle(color: Colors.grey, fontSize: 13)),
+                      ],
+                    ),
+                  )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -240,25 +228,14 @@ class _FoundPageState extends State<FoundPage> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: _isPosting ? null : _postDetailsToFirestore,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _isPosting
-                          ? const SizedBox(
-                              width: 24.0,
-                              height: 24.0,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            )
-                          : const SizedBox.shrink(),
-                      SizedBox(width: _isPosting ? 8.0 : 0.0),
-                      const Text(
-                        'Post',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ],
-                  ),
+                  child: _isPosting
+                      ? const SizedBox(
+                          width: 24, height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white, strokeWidth: 2,
+                          ),
+                        )
+                      : const Text('Post Found Item'),
                 ),
               ),
             ],

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/models/item_model.dart';
+import 'package:lost_and_found/theme/app_theme.dart';
+import 'package:lost_and_found/widgets/app_drawer.dart';
 
 class ItemListingPage extends StatefulWidget {
   const ItemListingPage({super.key});
@@ -122,7 +124,7 @@ class _ItemListingPageState extends State<ItemListingPage>
           ],
         ),
       ),
-      drawer: _buildDrawer(),
+      drawer: const AppDrawer(currentRoute: '/items'),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : TabBarView(
@@ -136,106 +138,95 @@ class _ItemListingPageState extends State<ItemListingPage>
     );
   }
 
-  Widget _buildDrawer() {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Text('Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24)),
-          ),
-          ListTile(
-            title: const Text('Home'),
-            onTap: () => Navigator.pushReplacementNamed(context, '/home'),
-          ),
-          ListTile(
-            title: const Text('Browse Items'),
-            onTap: () => Navigator.pushReplacementNamed(context, '/items'),
-          ),
-          ListTile(
-            title: const Text('Profile'),
-            onTap: () => Navigator.pushReplacementNamed(context, '/profile'),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildItemList(List<ItemModel> items) {
     if (items.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(32),
-          child: Text(
-            _searchQuery.isNotEmpty
-                ? 'No items match your search. Try a different keyword.'
-                : 'No items posted yet',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16, color: Colors.grey),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.inbox_outlined, size: 64, color: AppTheme.textSecondary),
+              const SizedBox(height: AppTheme.space16),
+              Text(
+                _searchQuery.isNotEmpty
+                    ? 'No items match your search.\nTry a different keyword.'
+                    : 'No items posted yet',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: AppTheme.textSecondary,
+                ),
+              ),
+            ],
           ),
         ),
       );
     }
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: AppTheme.space8),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        return InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, '/details', arguments: item);
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: item.imageUrls.isNotEmpty
-                      ? Image.network(
-                          item.imageUrls[0],
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const SizedBox(
-                                width: 80, height: 80,
-                                child: Icon(Icons.image_not_supported, size: 40, color: Colors.grey),
-                              ),
-                        )
-                      : const SizedBox(
-                          width: 80, height: 80,
-                          child: Icon(Icons.image_not_supported, size: 40, color: Colors.grey),
-                        ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item.itemName,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                      const SizedBox(height: 4),
-                      Text(_formatDate(item.createdAt),
-                          style: const TextStyle(fontSize: 13, color: Colors.grey)),
-                    ],
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppTheme.space16, vertical: 6),
+          child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/details', arguments: item);
+            },
+            borderRadius: AppTheme.radiusMedium,
+            child: Container(
+              padding: const EdgeInsets.all(AppTheme.space12),
+              decoration: BoxDecoration(
+                color: AppTheme.surface,
+                borderRadius: AppTheme.radiusMedium,
+                border: Border.all(color: AppTheme.border),
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: AppTheme.radiusMedium,
+                    child: item.imageUrls.isNotEmpty
+                        ? Image.network(
+                            item.imageUrls[0],
+                            width: 72,
+                            height: 72,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Container(
+                                  width: 72, height: 72,
+                                  color: AppTheme.muted,
+                                  child: const Icon(Icons.image_not_supported, size: 32, color: AppTheme.textSecondary),
+                                ),
+                          )
+                        : Container(
+                            width: 72, height: 72,
+                            color: AppTheme.muted,
+                            child: const Icon(Icons.image_not_supported, size: 32, color: AppTheme.textSecondary),
+                          ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: item.type == 'lost'
-                        ? const Color.fromARGB(255, 214, 128, 23)
-                        : const Color(0xFF6CB523),
-                    borderRadius: BorderRadius.circular(4),
+                  const SizedBox(width: AppTheme.space12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(item.itemName,
+                            style: Theme.of(context).textTheme.titleMedium),
+                        const SizedBox(height: 4),
+                        Text(_formatDate(item.createdAt),
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
                   ),
-                  child: Text(
-                    item.type == 'lost' ? 'Lost' : 'Found',
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: AppTheme.badgeDecoration(item.type),
+                    child: Text(
+                      item.type == 'lost' ? 'Lost' : 'Found',
+                      style: AppTheme.badgeTextStyle,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

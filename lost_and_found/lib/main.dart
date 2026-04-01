@@ -52,103 +52,57 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: SingleChildScrollView(
-            child: Center(
+        child: SingleChildScrollView(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(AppTheme.space16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Image.asset(
                       'assets/LF_logo.png',
-                      width: 200.0,
-                      height: 200.0,
+                      width: 160.0,
+                      height: 160.0,
                     ),
-                    const SizedBox(height: 10.0),
-                    // Description text
-                    const Text(
-                      'You can Find or Post Lost and Found Items!',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'Poppins',
-                        color: Colors.black,
+                    const SizedBox(height: AppTheme.space16),
+                    Text(
+                      'What would you like to do?',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: AppTheme.textSecondary,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    // Browse Items — primary action
+                    const SizedBox(height: AppTheme.space32),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/items');
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 214, 128, 23),
-                        minimumSize: const Size(325, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                      ),
-                      child: const Text(
-                        'Browse Items',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins',
-                          fontSize: 18,
-                        ),
-                      ),
+                      child: const Text('Browse Items'),
                     ),
-                    const SizedBox(height: 20.0),
-                    // Report Lost Item — secondary
+                    const SizedBox(height: AppTheme.space16),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/lost');
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 214, 128, 23),
-                        minimumSize: const Size(325, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                      ),
-                      child: const Text(
-                        'Report Lost Item',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins',
-                          fontSize: 18,
-                        ),
-                      ),
+                      child: const Text('Report Lost Item'),
                     ),
-                    const SizedBox(height: 20.0),
-                    // Report Found Item — secondary
+                    const SizedBox(height: AppTheme.space16),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/found');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF6CB523),
-                        minimumSize: const Size(325, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
+                        backgroundColor: AppTheme.foundBadge,
                       ),
-                      child: const Text(
-                        'Report Found Item',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins',
-                          fontSize: 18,
-                        ),
-                      ),
+                      child: const Text('Report Found Item'),
                     ),
                   ],
                 ),
               ),
             ),
           ),
+        ),
       ),
     );
   }

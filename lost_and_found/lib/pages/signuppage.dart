@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/theme/app_theme.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -11,7 +12,6 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -37,18 +37,14 @@ class _SignUpPageState extends State<SignUpPage> {
         String email = userCredential.user?.email ?? '';
         String uid = userCredential.user?.uid ?? '';
 
-        // Get first name and last name from text controllers
         String firstName = _firstNameController.text;
         String lastName = _lastNameController.text;
 
-        // Create a reference to the Firestore database
         final usersCollection = FirebaseFirestore.instance.collection('users');
 
-        // Check if the user already exists in the Firestore database
         DocumentSnapshot userDoc = await usersCollection.doc(uid).get();
 
         if (!userDoc.exists) {
-          // If the user doesn't exist, create a new document with UID, email, first name, and last name
           await usersCollection.doc(uid).set({
             'uid': uid,
             'email': email,
@@ -57,11 +53,8 @@ class _SignUpPageState extends State<SignUpPage> {
           });
         }
 
-        // Navigate to home page or any other page after successful signup
         Navigator.pushReplacementNamed(context, '/signin');
       } else {
-        // Passwords do not match
-        // Handle error or display a message to the user
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Passwords do not match'),
@@ -70,8 +63,6 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      // Handle Firebase authentication exceptions
-      // You can display different messages based on the exception code
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error during signup: ${e.message}'),
@@ -99,86 +90,98 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(AppTheme.space16),
         child: Column(
           children: [
-            SizedBox(
-              height: deviceHeight * 0.05,
-            ),
+            SizedBox(height: deviceHeight * 0.06),
             Image.asset(
-              'assets/LF_logo.png', // Replace with your image asset
-              width: deviceWidth * 0.6,
-              height: deviceHeight * 0.3,
-              // You can adjust the width and height based on your preference
+              'assets/LF_logo.png',
+              width: deviceWidth * 0.4,
+              height: deviceHeight * 0.15,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppTheme.space16),
+            Text(
+              'Create Account',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: AppTheme.space8),
+            Text(
+              'Sign up to get started',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppTheme.textSecondary,
+              ),
+            ),
+            const SizedBox(height: AppTheme.space24),
             TextFormField(
               controller: _firstNameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'First Name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                prefixIcon: Icon(Icons.person_outline),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppTheme.space12),
             TextFormField(
               controller: _lastNameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Last Name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                prefixIcon: Icon(Icons.person_outline),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppTheme.space12),
             TextFormField(
               controller: _usernameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                prefixIcon: Icon(Icons.email_outlined),
               ),
+              keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 10),
-            buildPasswordFormField(
+            const SizedBox(height: AppTheme.space12),
+            TextFormField(
               controller: _passwordController,
-              labelText: 'Password',
-            ),
-            const SizedBox(height: 10),
-            buildPasswordFormField(
-              controller: _confirmPasswordController,
-              labelText: 'Confirm Password',
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: deviceHeight * 0.06,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _signUp,
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              obscureText: !_isPasswordVisible,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                prefixIcon: const Icon(Icons.lock_outline),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
                 ),
-                child: _isLoading
-                    ? const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : const Text('Sign Up'),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppTheme.space12),
+            TextFormField(
+              controller: _confirmPasswordController,
+              obscureText: !_isPasswordVisible,
+              decoration: const InputDecoration(
+                labelText: 'Confirm Password',
+                prefixIcon: Icon(Icons.lock_outline),
+              ),
+            ),
+            const SizedBox(height: AppTheme.space24),
+            ElevatedButton(
+              onPressed: _isLoading ? null : _signUp,
+              child: _isLoading
+                  ? const SizedBox(
+                      width: 24, height: 24,
+                      child: CircularProgressIndicator(
+                        color: AppTheme.onPrimary, strokeWidth: 2,
+                      ),
+                    )
+                  : const Text('Sign Up'),
+            ),
+            const SizedBox(height: AppTheme.space12),
             TextButton(
               onPressed: () {
-                // Navigate to Sign In page
                 Navigator.pushReplacementNamed(context, '/signin');
               },
-              child: const Text(
-                'Already registered? Sign In here',
-                style: TextStyle(color: Colors.black),
-              ),
+              child: const Text('Already registered? Sign In here'),
             ),
           ],
         ),
@@ -194,31 +197,5 @@ class _SignUpPageState extends State<SignUpPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
-  }
-
-  Widget buildPasswordFormField({
-    required TextEditingController controller,
-    required String labelText,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: !_isPasswordVisible,
-      decoration: InputDecoration(
-        labelText: labelText,
-        suffixIcon: IconButton(
-          icon: Icon(
-            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            setState(() {
-              _isPasswordVisible = !_isPasswordVisible;
-            });
-          },
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
   }
 }
