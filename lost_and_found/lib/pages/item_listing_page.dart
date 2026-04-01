@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/models/item_model.dart';
+import 'package:lost_and_found/utils/date_helpers.dart';
 import 'package:lost_and_found/theme/app_theme.dart';
 import 'package:lost_and_found/widgets/app_drawer.dart';
 
@@ -212,7 +213,7 @@ class _ItemListingPageState extends State<ItemListingPage>
                         Text(item.itemName,
                             style: Theme.of(context).textTheme.titleMedium),
                         const SizedBox(height: 4),
-                        Text(_formatDate(item.createdAt),
+                        Text(formatShortDate(item.createdAt),
                             style: Theme.of(context).textTheme.bodySmall),
                       ],
                     ),
@@ -234,11 +235,4 @@ class _ItemListingPageState extends State<ItemListingPage>
     );
   }
 
-  String _formatDate(Timestamp? timestamp) {
-    if (timestamp == null) return 'Date unknown';
-    final date = timestamp.toDate();
-    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return '${months[date.month - 1]} ${date.day}, ${date.year}';
-  }
 }

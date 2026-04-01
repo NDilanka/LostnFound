@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lost_and_found/models/item_model.dart';
+import 'package:lost_and_found/utils/date_helpers.dart';
 import 'package:lost_and_found/theme/app_theme.dart';
 import 'package:lost_and_found/widgets/app_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -123,7 +124,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600)),
                   const SizedBox(height: AppTheme.space8),
-                  Text(_formatFullDate(item.createdAt),
+                  Text(formatFullDate(item.createdAt),
                       style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: AppTheme.space16),
 
@@ -264,16 +265,4 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
     );
   }
 
-  String _formatFullDate(Timestamp? timestamp) {
-    if (timestamp == null) return 'Date unknown';
-    final date = timestamp.toDate();
-    final months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    final hour = date.hour > 12 ? date.hour - 12 : (date.hour == 0 ? 12 : date.hour);
-    final amPm = date.hour >= 12 ? 'PM' : 'AM';
-    final minute = date.minute.toString().padLeft(2, '0');
-    return '${months[date.month - 1]} ${date.day}, ${date.year} at $hour:$minute $amPm';
-  }
 }
