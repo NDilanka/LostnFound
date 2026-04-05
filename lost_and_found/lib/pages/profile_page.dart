@@ -44,12 +44,11 @@ class _ProfilePageState extends State<ProfilePage> {
     super.dispose();
   }
 
-  void _fetchUserData() async {
+  Future<void> _fetchUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       _userId = user.uid;
       _fetchMyItems();
-      // Fetch user data from Firestore using current user's UID
       DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
           .instance
           .collection('users')
@@ -67,8 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  void _updateUserData() async {
-    // Update user data in Firestore using current user's UID
+  Future<void> _updateUserData() async {
     await FirebaseFirestore.instance.collection('users').doc(_userId).update({
       'email': _emailController.text,
       'firstName': _firstNameController.text,

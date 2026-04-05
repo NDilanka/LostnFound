@@ -61,10 +61,9 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset(
-                      'assets/LF_logo.png',
-                      width: 160.0,
-                      height: 160.0,
+                    Text(
+                      'Lost&Found',
+                      style: AppTheme.logoOnLight(fontSize: 40),
                     ),
                     const SizedBox(height: AppTheme.space16),
                     Text(
@@ -85,6 +84,9 @@ class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/lost');
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.error,
+                      ),
                       child: const Text('Report Lost Item'),
                     ),
                     const SizedBox(height: AppTheme.space16),

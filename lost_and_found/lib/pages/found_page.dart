@@ -112,7 +112,6 @@ class _FoundPageState extends State<FoundPage> {
           duration: Duration(seconds: 2),
         ),
       );
-      print('Error posting item details: $e');
     } finally {
       setState(() {
         _isPosting = false;

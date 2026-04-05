@@ -98,6 +98,7 @@ class _ItemListingPageState extends State<ItemListingPage>
           controller: _searchController,
           decoration: InputDecoration(
             hintText: 'Search items...',
+            filled: false,
             border: InputBorder.none,
             prefixIcon: const Icon(Icons.search, color: Colors.white70),
             suffixIcon: _searchQuery.isNotEmpty

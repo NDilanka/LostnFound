@@ -8,7 +8,6 @@ Future<void> seedDemoData() async {
 
   final userId = user.uid;
 
-  // Fetch poster name from users collection
   final userDoc = await firestore.collection('users').doc(userId).get();
   final userData = userDoc.data();
   final posterName = userData != null
@@ -18,7 +17,6 @@ Future<void> seedDemoData() async {
 
   final now = DateTime.now();
 
-  // 7 Lost items
   final lostItems = [
     {
       'itemName': 'Black Leather Wallet',
@@ -87,7 +85,6 @@ Future<void> seedDemoData() async {
     },
   ];
 
-  // 5 Found items
   final foundItems = [
     {
       'itemName': 'Water Bottle (Hydro Flask)',
@@ -137,7 +134,6 @@ Future<void> seedDemoData() async {
     },
   ];
 
-  // Write to Firestore
   final batch = firestore.batch();
 
   for (final item in lostItems) {

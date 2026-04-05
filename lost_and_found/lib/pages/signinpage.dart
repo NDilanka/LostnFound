@@ -60,7 +60,6 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     final double deviceHeight = MediaQuery.of(context).size.height;
-    final double deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -68,10 +67,9 @@ class _SignInPageState extends State<SignInPage> {
         child: Column(
           children: [
             SizedBox(height: deviceHeight * 0.1),
-            Image.asset(
-              'assets/LF_logo.png',
-              width: deviceWidth * 0.5,
-              height: deviceHeight * 0.2,
+            Text(
+              'Lost&Found',
+              style: AppTheme.logoOnLight(fontSize: 32),
             ),
             const SizedBox(height: AppTheme.space24),
             Text(

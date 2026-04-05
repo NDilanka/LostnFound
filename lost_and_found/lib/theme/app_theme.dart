@@ -46,6 +46,24 @@ class AppTheme {
     fontWeight: FontWeight.w600,
   );
 
+  // Logo text styles
+  static TextStyle logoStyle({
+    required Color color,
+    double fontSize = 32,
+  }) {
+    return GoogleFonts.poppins(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w700,
+      color: color,
+    );
+  }
+
+  static TextStyle logoOnPrimary({double fontSize = 32}) =>
+      logoStyle(color: onPrimary, fontSize: fontSize);
+
+  static TextStyle logoOnLight({double fontSize = 32}) =>
+      logoStyle(color: primary, fontSize: fontSize);
+
   static ThemeData themeData() {
     final textTheme = TextTheme(
       headlineLarge: GoogleFonts.poppins(

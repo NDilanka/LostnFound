@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -43,7 +42,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Photos
             if (item.imageUrls.isNotEmpty) _buildPhotoSection(item),
 
             Padding(
@@ -51,7 +49,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Item name + type badge
                   Row(
                     children: [
                       Expanded(
@@ -76,7 +73,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   ),
                   const SizedBox(height: AppTheme.space16),
 
-                  // Description
                   Text('Description',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600)),
@@ -85,7 +81,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: AppTheme.space16),
 
-                  // Location map (conditional)
                   if (item.location != null) ...[
                     Text('Location',
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -119,7 +114,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     const SizedBox(height: AppTheme.space16),
                   ],
 
-                  // Posting date and time
                   Text('Posted',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600)),
@@ -128,7 +122,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: AppTheme.space16),
 
-                  // Poster info
                   Text('Posted by',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600)),
@@ -139,7 +132,6 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   Text(item.posterEmail ?? 'Contact info not available',
                       style: Theme.of(context).textTheme.bodySmall),
 
-                  // Contact Poster button
                   if (item.posterEmail != null) ...[
                     const SizedBox(height: AppTheme.space16),
                     ElevatedButton.icon(

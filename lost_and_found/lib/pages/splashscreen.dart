@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lost_and_found/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,18 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'assets/LF_logo.png',
-              width: MediaQuery.of(context).size.width * 0.4,
-            ),
-            const SizedBox(height: AppTheme.space16),
             Text(
-              'Lost & Found',
-              style: GoogleFonts.poppins(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-                color: AppTheme.onPrimary,
-              ),
+              'Lost&Found',
+              style: AppTheme.logoOnPrimary(fontSize: 36),
             ),
             const SizedBox(height: AppTheme.space32),
             const SizedBox(

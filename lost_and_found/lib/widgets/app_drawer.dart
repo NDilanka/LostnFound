@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lost_and_found/theme/app_theme.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -20,15 +19,9 @@ class AppDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Image.asset('assets/LF_logo.png', width: 48, height: 48),
-                const SizedBox(height: 8),
                 Text(
-                  'Lost & Found',
-                  style: GoogleFonts.poppins(
-                    color: AppTheme.onPrimary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  'Lost&Found',
+                  style: AppTheme.logoOnPrimary(fontSize: 20),
                 ),
               ],
             ),

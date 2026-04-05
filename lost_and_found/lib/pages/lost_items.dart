@@ -112,7 +112,6 @@ class _LostPageState extends State<LostPage> {
           duration: Duration(seconds: 2),
         ),
       );
-      print('Error posting item details: $e');
     } finally {
       setState(() {
         _isPosting = false;
